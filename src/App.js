@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import AnalyseInput from './components/AnalyseInput';
+import Dashboard from './components/Dashboard';
+import { defaults } from './defaults.js';
 
 function App() {
+  const [result, setResult] = useState(null);
+  const [error, setError] = useState(null);
+  const [inputText, setInputText] = useState(defaults.defaultText);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <AnalyseInput
+        onResult={setResult}
+        onError={setError}
+        onInputText={setInputText}
+      />
+      <Dashboard
+        result={result}
+        error={error}
+        inputText={inputText}
+      />
+    </>
   );
 }
 
