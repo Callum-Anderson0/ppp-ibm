@@ -6,7 +6,6 @@ A full-stack React application that leverages IBM Watson's Natural Language Unde
 ## Features
 - **Text Analysis**: Analyze text sentiment, extract keywords, and identify entities
 - **Interactive Data Visualization**: Custom gauge charts for sentiment scores using MUI X Charts
-- **Text Highlighting**: Dynamic keyword highlighting with custom styling
 - **Multiple Analysis Levels**: Three tiers of analysis (Default, Advanced, Full) with varying detail levels
 - **Responsive Design**: Modern UI built with Tailwind CSS
 
