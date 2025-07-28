@@ -1,70 +1,239 @@
-# Getting Started with Create React App
+# IBM Watson Text Analysis Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
+A full-stack React application that leverages IBM Watson's Natural Language Understanding API to perform comprehensive text analysis. The application provides sentiment analysis, keyword extraction, entity recognition, and interactive data visualization.
 
-## Available Scripts
+## Features
+- **Text Analysis**: Analyze text sentiment, extract keywords, and identify entities
+- **Interactive Data Visualization**: Custom gauge charts for sentiment scores using MUI X Charts
+- **Text Highlighting**: Dynamic keyword highlighting with custom styling
+- **Multiple Analysis Levels**: Three tiers of analysis (Default, Advanced, Full) with varying detail levels
+- **Responsive Design**: Modern UI built with Tailwind CSS
 
-In the project directory, you can run:
+## Tech Stack
+### Frontend
+- **React 19.1.0** - Modern React with hooks and functional components
+- **Tailwind CSS 3.4.17** - Utility-first CSS framework with custom design system
+- **MUI X Charts 8.9.0** - Data visualization components
+- **Concurrently 9.2.0** - Development workflow management
 
-### `npm start`
+### Backend
+- **Node.js** - JavaScript runtime
+- **Express 5.1.0** - Web application framework
+- **CORS** - Cross-origin resource sharing
+- **dotenv** - Environment variable management
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### APIs & Services
+- **IBM Watson Natural Language Understanding** - AI-powered text analysis
+- **Custom REST API** - Backend proxy for secure API communication
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Architecture
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   React App     │    │  Express Server │    │  IBM Watson API │
+│                 │    │                 │    │                 │
+│ • AnalyseInput  │───▶│ • /analyse      │───▶│ • Sentiment     │
+│ • Dashboard     │    │ • CORS          │    │ • Keywords      │
+│ • CardHolder    │    │ • Auth          │    │ • Entities      │
+│ • GaugeChart    │    │ • Validation    │    │ • Categories    │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+```
 
-### `npm test`
+## Key Technical Decisions
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 1. **State Management**
+- Lifted state to App component for shared data access
+- Used React hooks (useState, useCallback, useMemo) for optimal performance
+- Implemented callback pattern for parent-child communication
 
-### `npm run build`
+### 2. **Security Implementation**
+- API key stored server-side only (never exposed to frontend)
+- Input validation on both client and server
+- CORS configuration for secure cross-origin requests
+- Error sanitization to prevent information leakage
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 3. **Performance Optimization**
+- Memoized expensive calculations with useMemo
+- Implemented auto-expanding textarea with efficient DOM manipulation
+- Used CSS-in-JS for dynamic styling without re-renders
+- Optimized text highlighting with single-pass regex replacement
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 4. **User Experience**
+- Real-time text analysis with loading states
+- Interactive data visualization with custom gauge charts
+- Responsive design that works across devices
+- Intuitive interface with clear visual feedback
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Installation & Setup
 
-### `npm run eject`
+### Prerequisites
+- Node.js (v16 or higher)
+- npm or yarn
+- IBM Watson API key
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Environment Variables
+Create a `.env` file in the root directory:
+```env
+REACT_APP_API_KEY=your_ibm_watson_api_key_here
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Installation Steps
+```bash
+# Clone the repository
+git clone <repository-url>
+cd ppp-ibm
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# Install dependencies
+npm install
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# Start development server
+npm start
+```
 
-## Learn More
+The application will be available at:
+- Frontend: http://localhost:3000
+- Backend: http://localhost:5000
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Usage
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Basic Analysis
+1. Enter or paste text in the textarea
+2. Select analysis level (Default/Advanced/Full)
+3. Click "Analyse" button
+4. View sentiment score, highlighted keywords, and extracted entities
 
-### Code Splitting
+### Analysis Levels
+- **Default**: Basic sentiment and keyword extraction (~1-2s)
+- **Advanced**: Adds categories, concepts, and emotions (~3-5s)
+- **Full**: Complete linguistic analysis with syntax parsing (~5-8s)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Project Structure
+```
+src/
+├── components/
+│   ├── AnalyseInput.jsx    # Text input and analysis controls
+│   ├── Dashboard.jsx       # Main results display
+│   ├── CardHolder.jsx      # Grid layout for analysis cards
+│   ├── Card.jsx           # Individual analysis result cards
+│   └── GaugeChart.jsx     # Sentiment visualization component
+├── defaults.js            # Default text and API response data
+├── featurePresets.js      # IBM Watson API configuration presets
+└── App.js                # Main application component
 
-### Analyzing the Bundle Size
+server/
+└── server.js             # Express server for API proxy
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## API Integration
 
-### Making a Progressive Web App
+### IBM Watson Features Used
+- **Sentiment Analysis**: Document-level and entity-level sentiment scoring
+- **Keyword Extraction**: Important terms with relevance and emotion scores
+- **Entity Recognition**: Named entities (people, places, organizations)
+- **Categories**: Content categorization with confidence scores
+- **Concepts**: High-level concepts and themes
+- **Emotion Analysis**: Joy, sadness, anger, fear, disgust detection
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Custom API Endpoints
+- `POST /analyse`: Main analysis endpoint
+  - Accepts: `{ text: string, features: object }`
+  - Returns: IBM Watson analysis results
 
-### Advanced Configuration
+## Performance Considerations
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Optimizations Implemented
+- **Text Highlighting**: Single-pass regex replacement instead of multiple loops
+- **Component Memoization**: Used React.memo and useMemo for expensive operations
+- **Lazy Loading**: Conditional rendering of heavy components
+- **Efficient State Updates**: Minimal re-renders through proper state management
 
-### Deployment
+### Scalability Features
+- **Modular Architecture**: Easy to add new analysis features
+- **Configurable Analysis Levels**: Adjustable detail based on user needs
+- **Error Boundaries**: Graceful handling of API failures
+- **Caching Ready**: Architecture supports result caching
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Testing Strategy
 
-### `npm run build` fails to minify
+### Manual Testing
+- Cross-browser compatibility (Chrome, Firefox, Safari, Edge)
+- Responsive design testing on various screen sizes
+- API error handling and edge cases
+- Performance testing with large text inputs
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Future Testing Implementation
+```javascript
+// Unit tests for components
+// Integration tests for API calls
+// E2E tests for user workflows
+// Performance tests for large datasets
+```
+
+## Deployment Considerations
+
+### Production Requirements
+- **Environment Variables**: Secure API key management
+- **HTTPS**: Secure API communication
+- **Error Monitoring**: Application performance monitoring
+- **Rate Limiting**: API call throttling
+- **Caching**: Redis for frequently analyzed texts
+
+### Deployment Options
+- **Frontend**: Vercel, Netlify, or AWS S3
+- **Backend**: Heroku, AWS Lambda, or DigitalOcean
+- **Database**: MongoDB or PostgreSQL for result storage
+
+## Future Enhancements
+
+### Planned Features
+- **User Authentication**: Multi-user support with analysis history
+- **Batch Processing**: Analyze multiple documents simultaneously
+- **Export Functionality**: PDF/CSV export of analysis results
+- **Advanced Visualizations**: Charts and graphs for trend analysis
+- **Real-time Collaboration**: Shared analysis sessions
+
+### Technical Improvements
+- **TypeScript Migration**: Type safety and better developer experience
+- **State Management**: Redux or Zustand for complex state
+- **Testing Suite**: Jest and React Testing Library
+- **CI/CD Pipeline**: Automated testing and deployment
+
+## Challenges & Solutions
+
+### Key Challenges Faced
+1. **API Key Security**: Solved with server-side proxy
+2. **Text Highlighting Performance**: Optimized with regex and memoization
+3. **Component Communication**: Implemented callback pattern
+4. **Error Handling**: Comprehensive error boundaries and user feedback
+
+### Technical Solutions
+- **Security**: Server-side API proxy prevents key exposure
+- **Performance**: React optimization techniques and efficient algorithms
+- **UX**: Loading states, error messages, and responsive design
+- **Maintainability**: Clean code structure and documentation
+
+## About the Developer
+
+This project was developed as part of the Propellor Studios interview process, demonstrating:
+- **Full-stack development** capabilities
+- **API integration** and security best practices
+- **Modern React** patterns and performance optimization
+- **UI/UX design** with responsive and accessible interfaces
+- **Problem-solving** skills in handling complex requirements
+
+## License
+This project is developed for demonstration purposes as part of a job interview process.
+
+---
+
+**Contact**: [Your Name] - [Your Email] - [Your LinkedIn]
+```
+
+## **Key Sections for Job Interview:**
+
+1. **Clear Overview** - What the app does
+2. **Tech Stack** - Demonstrates technical knowledge
+3. **Architecture** - Shows system design understanding
+4. **Technical Decisions** - Explains reasoning and trade-offs
+5. **Installation Guide** - Shows 
+
