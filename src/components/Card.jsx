@@ -4,7 +4,7 @@ function Card({ header, content }) {
     const [showJSON, setShowJSON] = useState(false);
     
     return (
-        <div className={`card bg-card-gray border border-card-border rounded-[25px] max-h-[600px] overflow-y-auto scrollbar-hide py-2 px-1`}>
+        <div className={`card bg-card-gray border border-card-border rounded-[25px] max-h-[600px] overflow-y-auto scrollbar-hide py-2 px-1 overflow-x-hidden scrollbar-hide shadow-lg`}>
             <div className="flex flex-row justify-between items-center">
                 <h2 className="pl-2">{header.charAt(0).toUpperCase() + header.slice(1)}</h2>
                 <button 

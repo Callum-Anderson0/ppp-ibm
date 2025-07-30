@@ -5,7 +5,7 @@ import { defaults } from '../defaults.js';
 function AnalyseInput({ onResult, onError, onInputText }) {
     const [text, setText] = useState(defaults.defaultText);
     const [selectedLevel, setSelectedLevel] = useState('default');
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const textareaRef = useRef(null);
 
     // Function to handle textarea auto-resize
@@ -64,7 +64,7 @@ function AnalyseInput({ onResult, onError, onInputText }) {
     }
 
     return (
-        <div className="relative bg-card-gray border border-card-border p-2 px-2 mt-2 mx-auto w-2/3 rounded-[25px] flex flex-col gap-2">
+        <div className="fixed bottom-4 left-0 right-0 bg-card-gray border border-card-border p-2 px-2 mt-2 mx-auto w-2/3 rounded-[25px] flex flex-col gap-2">
             <textarea 
                 ref={textareaRef}
                 className='bg-card-gray resize-none overflow-y-auto  min-h-[40px] max-h-[200px] border-none outline-none pl-2 pr-[2px] scrollbar-hide'
@@ -79,9 +79,9 @@ function AnalyseInput({ onResult, onError, onInputText }) {
                     className='bg-card-gray ml-[4px] rounded-[25px] border-card-border'
                     onChange={(e) => setSelectedLevel(e.target.value)}
                 >
-                    <option value="default" >Default</option>
-                    <option value="advanced">Advanced</option>
-                    <option value="full">Full</option>
+                    <option value="default" > Default</option>
+                    <option value="advanced"> Advanced</option>
+                    <option value="full"> Full</option>
                 </select>
                 
                 <button onClick={handleClick} className='bg-button-gray border border-card-border rounded-full p-2 px-4 text-button-text'>

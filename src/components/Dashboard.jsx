@@ -21,7 +21,7 @@ function Dashboard({ result, error, inputText }) {
 
     return (
         <div className="dashboard">
-            <div className="bg-card-gray border border-card-border rounded-[25px] mx-auto w-2/3 pl-4 pr-2 py-[10px] my-2">
+            <div className="bg-card-gray border border-card-border rounded-[25px] mx-auto w-2/3 pl-4 pr-2 py-[10px] mt-4 mb-2">
                 {result !== null && (<p dangerouslySetInnerHTML={{ __html: htmlText }}></p>)}
                 {result === null && (<p>Loading...</p>)}
             </div>          
